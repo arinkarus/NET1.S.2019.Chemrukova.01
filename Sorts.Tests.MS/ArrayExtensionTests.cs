@@ -35,7 +35,7 @@ namespace Sorts.Tests.MS
         [DataRow(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = RandomHelper.GetRandomArray(amountOfElements);
+            var array = RandomHelper.GetArray(amountOfElements);
             array.QuickSort();
             Assert.IsTrue(array.IsOrdered());
         }
@@ -83,7 +83,7 @@ namespace Sorts.Tests.MS
         [DataRow(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = RandomHelper.GetRandomArray(amountOfElements);
+            var array = RandomHelper.GetArray(amountOfElements);
             array.MergeSort();
             Assert.IsTrue(array.IsOrdered());
         }

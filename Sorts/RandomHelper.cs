@@ -14,7 +14,7 @@ namespace Sorts
         /// <param name="amountOfElements">Count of elements in generated array.</param>
         /// <returns>Generated array</returns>
         /// <exception cref="ArgumentException">Thrown when amountOfElements is less then 1.</exception>
-        public static int[] GetRandomArray(int amountOfElements)
+        public static int[] GetArray(int amountOfElements)
         {
             if (amountOfElements < 0)
             {

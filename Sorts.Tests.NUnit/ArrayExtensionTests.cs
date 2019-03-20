@@ -38,7 +38,7 @@ namespace Sorts.Tests.NUnit
         [TestCase(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = RandomHelper.GetRandomArray(amountOfGeneratedValues);
+            var array = RandomHelper.GetArray(amountOfGeneratedValues);
             array.QuickSort();
             Assert.That(array, Is.Ordered);
         }
@@ -62,7 +62,7 @@ namespace Sorts.Tests.NUnit
         [TestCase(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = RandomHelper.GetRandomArray(amountOfGeneratedValues);
+            var array = RandomHelper.GetArray(amountOfGeneratedValues);
             array.MergeSort();
             Assert.That(array, Is.Ordered);
         }
