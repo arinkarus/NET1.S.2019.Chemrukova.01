@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="ArrayExtension class">
+    <HelpKINode Title="ArrayExtension Class" Url="html/1191a7b8-1ad8-b183-8f15-532d62cf5d4e.htm" />
+    <HelpKINode Title="methods" Url="html/ce198c10-7d78-73be-26ad-d9779205c7c9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ArrayExtension.IsOrdered method" Url="html/4dae99f8-0483-06ef-5b9d-794c8343a504.htm" />
+  <HelpKINode Title="ArrayExtension.MergeSort method" Url="html/7e886bcd-3115-a0de-0443-ac11ae670129.htm" />
+  <HelpKINode Title="ArrayExtension.QuickSort method" Url="html/19981515-168e-0940-e944-6efd3b8cde7b.htm" />
+  <HelpKINode Title="GetRandomArray method" Url="html/43c3fb94-489e-5e16-4351-ab7b5009667d.htm" />
+  <HelpKINode Title="IsOrdered method" Url="html/4dae99f8-0483-06ef-5b9d-794c8343a504.htm" />
+  <HelpKINode Title="MergeSort method" Url="html/7e886bcd-3115-a0de-0443-ac11ae670129.htm" />
+  <HelpKINode Title="QuickSort method" Url="html/19981515-168e-0940-e944-6efd3b8cde7b.htm" />
+  <HelpKINode Title="RandomHelper class">
+    <HelpKINode Title="RandomHelper Class" Url="html/6476644b-5d76-455d-685c-a106cfe2ac34.htm" />
+    <HelpKINode Title="methods" Url="html/65d5f2ff-1bef-c30f-67d9-acbc7e60ef64.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RandomHelper.GetRandomArray method" Url="html/43c3fb94-489e-5e16-4351-ab7b5009667d.htm" />
+  <HelpKINode Title="Sorts namespace" Url="html/672fd137-845c-e978-76ef-5289504dfe76.htm" />
+  <HelpKINode Title="Sorts.ArrayExtension class" Url="html/1191a7b8-1ad8-b183-8f15-532d62cf5d4e.htm" />
+  <HelpKINode Title="Sorts.RandomHelper class" Url="html/6476644b-5d76-455d-685c-a106cfe2ac34.htm" />
+</HelpKI>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="f8a15bfd-f3b5-4248-9e51-d774098fdaec" Title="Sorts" Url="html/672fd137-845c-e978-76ef-5289504dfe76.htm">
+    <HelpTOCNode Id="c9fcb59b-e6b7-431d-9423-a996ca9fca38" Title="ArrayExtension Class" Url="html/1191a7b8-1ad8-b183-8f15-532d62cf5d4e.htm">
+      <HelpTOCNode Id="39ad5ec0-d59a-4208-9636-dee77c4c645c" Title="ArrayExtension Methods" Url="html/ce198c10-7d78-73be-26ad-d9779205c7c9.htm">
+        <HelpTOCNode Title="IsOrdered Method " Url="html/4dae99f8-0483-06ef-5b9d-794c8343a504.htm" />
+        <HelpTOCNode Title="MergeSort Method " Url="html/7e886bcd-3115-a0de-0443-ac11ae670129.htm" />
+        <HelpTOCNode Title="QuickSort Method " Url="html/19981515-168e-0940-e944-6efd3b8cde7b.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d5ebbb49-6550-456e-889f-7927ef22f7bd" Title="RandomHelper Class" Url="html/6476644b-5d76-455d-685c-a106cfe2ac34.htm">
+      <HelpTOCNode Id="e311c775-da01-4b13-a9f1-4b02724e9e48" Title="RandomHelper Methods" Url="html/65d5f2ff-1bef-c30f-67d9-acbc7e60ef64.htm">
+        <HelpTOCNode Title="GetRandomArray Method " Url="html/43c3fb94-489e-5e16-4351-ab7b5009667d.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
