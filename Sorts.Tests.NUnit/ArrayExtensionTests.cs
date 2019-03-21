@@ -14,11 +14,13 @@ namespace Sorts.Tests.NUnit
         {
             get
             {
+                yield return new TestCaseData(arg1: new int[] { 1, int.MinValue, 8, 11, int.MaxValue }, arg2: new int[] { int.MinValue, 1, 8, 11, int.MaxValue });
                 yield return new TestCaseData(arg1: new int[] { 100, 6, -8, 11 }, arg2: new int[] { -8, 6, 11, 100 });
                 yield return new TestCaseData(arg1: new int[] { 1 }, arg2: new int[] { 1 });
             }
         }
 
+        #region Quick Sort tests
         [Test]
         public void QuickSort_ArrayIsNull_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => ArrayExtension.QuickSort(null));
@@ -42,7 +44,9 @@ namespace Sorts.Tests.NUnit
             array.QuickSort();
             Assert.That(array, Is.Ordered);
         }
-        
+        #endregion
+
+        #region Merge Sort tests
         [Test]
         public void MergeSort_ArrayIsNull_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => ArrayExtension.MergeSort(null));
@@ -66,5 +70,6 @@ namespace Sorts.Tests.NUnit
             array.MergeSort();
             Assert.That(array, Is.Ordered);
         }
+        #endregion
     }
 }

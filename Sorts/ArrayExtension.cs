@@ -8,43 +8,25 @@ namespace Sorts
     public static class ArrayExtension
     {
         /// <summary>
-        /// Method that orders array ascending using Quick Sort algorithm.
+        /// Method that orders array ascending
         /// </summary>
         /// <param name="array">Array for sorting.</param>
         /// <exception cref="ArgumentNullException">Thrown when array is null.</exception>
         /// <exception cref="ArgumentException">Thrown when array is empty.</exception>
         public static void QuickSort(this int[] array)
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            if (array.Length == 0)
-            {
-                throw new ArgumentException(nameof(array));
-            }
-
+            CheckArray(array);
             QuickSort(array, 0, array.Length - 1);
         }
 
         /// <summary>
-        /// Method that orders array ascending using Merge Sort algorithm.
+        /// Method that orders array ascending 
         /// </summary>
         /// <param name="array">Array for sorting.</param>
         public static void MergeSort(this int[] array)
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            if (array.Length == 0)
-            {
-                throw new ArgumentException(nameof(array));
-            }
-
-            MergeSort(array, 0, array.Length - 1);
+            CheckArray(array);
+                     MergeSort(array, 0, array.Length - 1);
         }
 
         /// <summary>
@@ -77,15 +59,18 @@ namespace Sorts
             return true;
         }
 
+        #region Private methods for merge sort
         private static void MergeSort(int[] input, int low, int high)
         {
-            if (low < high)
+            if (low >= high)
             {
-                int middle = (low / 2) + (high / 2);
-                MergeSort(input, low, middle);
-                MergeSort(input, middle + 1, high);
-                Merge(input, low, middle, high);
+                return;
             }
+
+            int middle = (low / 2) + (high / 2);
+            MergeSort(input, low, middle);
+            MergeSort(input, middle + 1, high);
+            Merge(input, low, middle, high);
         }
 
         private static void Merge(int[] array, int low, int middle, int high)
@@ -122,14 +107,19 @@ namespace Sorts
             }
         }
 
+        #endregion
+
+        #region Private methods for quick sort
         private static void QuickSort(int[] unsorted, int low, int high)
         {
-            if (low < high)
+            if (low >= high)
             {
-                int partitioningIndex = Partition(unsorted, low, high);
-                QuickSort(unsorted, low, partitioningIndex - 1);
-                QuickSort(unsorted, partitioningIndex + 1, high);
+                return;
             }
+        
+            int partitioningIndex = Partition(unsorted, low, high);
+            QuickSort(unsorted, low, partitioningIndex - 1);
+            QuickSort(unsorted, partitioningIndex + 1, high);
         }
 
         private static int Partition(int[] array, int low, int high)
@@ -149,12 +139,28 @@ namespace Sorts
             Swap(ref array[indexOfCurrentMinElement], ref array[high]);
             return indexOfCurrentMinElement;
         }
-         
+        #endregion
+
+        #region Additional methods 
         private static void Swap(ref int firstElement, ref int secondElement)
         {
             int temp = firstElement;
             firstElement = secondElement;
             secondElement = temp;
         }
+
+        private static void CheckArray(int[] array)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException($"Input array cannot be null: {nameof(array)}");
+            }
+
+            if (array.Length == 0)
+            {
+                throw new ArgumentException($"Input array cannot be empty: {nameof(array)}");
+            }
+        }
+        #endregion
     }
 }

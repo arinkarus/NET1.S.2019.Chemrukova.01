@@ -6,6 +6,7 @@ namespace Sorts.Tests.MS
     [TestClass]
     public class ArrayExtensionTests
     {
+        #region Quick Sort tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void QuickSort_ArrayIsNull_ThrowArgumentNullException()
@@ -13,7 +14,7 @@ namespace Sorts.Tests.MS
             int[] array = null;
             array.QuickSort();
         }
-
+ 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void QuickSort_ArrayIsEmpty_ThrowArgumentException()
@@ -22,6 +23,8 @@ namespace Sorts.Tests.MS
         }
 
         [DataTestMethod]
+        [DataRow(new int[] { -255, 10, int.MaxValue, int.MinValue }, 
+            new int[] { int.MinValue, -255, 10, int.MaxValue })]
         [DataRow(new int[] { 5, -10, -50, 15 }, new int[] { -50, -10, 5, 15 }, DisplayName = "Array with few elements")]
         [DataRow(new int[] { 5 }, new int[] { 5 }, DisplayName = "Array with one element")]
         public void QuickSort_ConcreteArray_ArrayIsSorted(int[] given, int[] expected)
@@ -39,21 +42,9 @@ namespace Sorts.Tests.MS
             array.QuickSort();
             Assert.IsTrue(array.IsOrdered());
         }
+        #endregion
 
-        [DataTestMethod]
-        [DataRow(new int[] { 1, -5, 50, 5, 8, 6, 8 })]
-        public void IsSorted_UnorderedArray_ReturnFalse(int[] unordered)
-        {
-            Assert.IsFalse(unordered.IsOrdered());
-        }
-        
-        [DataTestMethod]
-        [DataRow(new int[] { -55, 0, 1, 1, 5, 8, 11, 12 })]
-        public void IsSorted_OrderedArray_ReturnTrue(int[] ordered)
-        {
-            Assert.IsTrue(ordered.IsOrdered());
-        }
-
+        #region Merge Sort tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void MergeSort_ArrayIsNull_ThrowArgumentNullException()
@@ -87,5 +78,23 @@ namespace Sorts.Tests.MS
             array.MergeSort();
             Assert.IsTrue(array.IsOrdered());
         }
+        #endregion
+
+        #region IsOrdered method tests
+        [DataTestMethod]
+        [DataRow(new int[] { 1, -5, 50, 5, 8, 6, 8 })]
+        public void IsOrdered_UnorderedArray_ReturnFalse(int[] unordered)
+        {
+            Assert.IsFalse(unordered.IsOrdered());
+        }
+
+        [DataTestMethod]
+        [DataRow(new int[] { -55, 0, 1, 1, 5, 8, 11, 12 })]
+        public void IsOrdered_OrderedArray_ReturnTrue(int[] ordered)
+        {
+            Assert.IsTrue(ordered.IsOrdered());
+        }
+        #endregion
     }
+
 }

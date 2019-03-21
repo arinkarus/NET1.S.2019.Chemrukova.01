@@ -9,7 +9,7 @@ namespace Sorts
     public static class RandomHelper
     {
         /// <summary>
-        /// Method for generating arrays that contain elements of random values.
+        /// Method for generating arrays that contains elements of random values.
         /// </summary>
         /// <param name="amountOfElements">Count of elements in generated array.</param>
         /// <returns>Generated array</returns>
