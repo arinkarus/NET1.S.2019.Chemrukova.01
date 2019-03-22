@@ -8,6 +8,19 @@ namespace Sorts
     public static class ArrayExtension
     {
         /// <summary>
+        /// Method returns max value from unsorted array.
+        /// </summary>
+        /// <param name="array">Unsorted array.</param>
+        /// <returns>Max element in array.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when array argument is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when amount of element in array is 0.</exception>
+        public static int GetMaxElement(this int[] array)
+        {
+            CheckArray(array);
+            return GetMaxElement(array, 0, array.Length - 1);
+        }
+
+        /// <summary>
         /// Method that orders array ascending
         /// </summary>
         /// <param name="array">Array for sorting.</param>
@@ -60,6 +73,7 @@ namespace Sorts
         }
 
         #region Private methods for merge sort
+
         private static void MergeSort(int[] input, int low, int high)
         {
             if (low >= high)
@@ -67,7 +81,7 @@ namespace Sorts
                 return;
             }
 
-            int middle = (low / 2) + (high / 2);
+            int middle = (low + high) >> 1;
             MergeSort(input, low, middle);
             MergeSort(input, middle + 1, high);
             Merge(input, low, middle, high);
@@ -110,6 +124,7 @@ namespace Sorts
         #endregion
 
         #region Private methods for quick sort
+
         private static void QuickSort(int[] unsorted, int low, int high)
         {
             if (low >= high)
@@ -139,9 +154,11 @@ namespace Sorts
             Swap(ref array[indexOfCurrentMinElement], ref array[high]);
             return indexOfCurrentMinElement;
         }
+
         #endregion
 
         #region Additional methods 
+
         private static void Swap(ref int firstElement, ref int secondElement)
         {
             int temp = firstElement;
@@ -161,6 +178,22 @@ namespace Sorts
                 throw new ArgumentException($"Input array cannot be empty: {nameof(array)}");
             }
         }
+        #endregion
+
+        #region Private methods for getting max element algorithm
+
+        private static int GetMaxElement(int[] array, int leftIndex, int rightIndex)
+        {
+            if (leftIndex == rightIndex)
+            {
+                return array[leftIndex];
+            }
+
+            int leftSubarrayMax = GetMaxElement(array, leftIndex, (leftIndex / 2) + (rightIndex / 2));
+            int rightSubarrayMax = GetMaxElement(array, (leftIndex / 2) + (rightIndex / 2) + 1, rightIndex);
+            return Math.Max(leftSubarrayMax, rightSubarrayMax);
+        }
+
         #endregion
     }
 }

@@ -21,6 +21,7 @@ namespace Sorts.Tests.NUnit
         }
 
         #region Quick Sort tests
+
         [Test]
         public void QuickSort_ArrayIsNull_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => ArrayExtension.QuickSort(null));
@@ -47,6 +48,7 @@ namespace Sorts.Tests.NUnit
         #endregion
 
         #region Merge Sort tests
+
         [Test]
         public void MergeSort_ArrayIsNull_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => ArrayExtension.MergeSort(null));
@@ -70,6 +72,37 @@ namespace Sorts.Tests.NUnit
             array.MergeSort();
             Assert.That(array, Is.Ordered);
         }
+        #endregion
+
+        #region FindMax tests
+
+        [TestCase(10)]
+        [TestCase(1000)]
+        [TestCase(100000)]
+        public void GetMaxElement_RandomArray_ReturnMaxValue(int amountOfGeneratedValues)
+        {
+            var randomizedArray = RandomHelper.GetArray(amountOfGeneratedValues);
+            int expected = randomizedArray.Max();
+            int actual = randomizedArray.GetMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { -1, 5, 88, 10, -10 }, 88)]
+        [TestCase(new int[] { 6, int.MaxValue, int.MaxValue, int.MinValue, 1, 2, }, int.MaxValue)]
+        [TestCase(new int[] { 33 }, 33)]
+        [TestCase(new int[] { -55, -55, -45, -10000 }, -45)]
+        public void GetMaxElement_ConcreteArray_ReturnMaxValue(int[] given, int expected)
+        {
+            int actual = given.GetMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void GetMaxElement_ArrayIsNull_ThrowArgumentNullException() =>
+            Assert.Throws<ArgumentNullException>(() => ArrayExtension.GetMaxElement(null));
+
+        public void GetMaxElement_ArrayIsEmpty_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => new int[] { }.GetMaxElement());
+
         #endregion
     }
 }
