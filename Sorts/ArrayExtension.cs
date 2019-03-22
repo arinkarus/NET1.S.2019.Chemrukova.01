@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sorts
 {
@@ -21,6 +22,33 @@ namespace Sorts
         }
 
         /// <summary>
+        /// Returns an array that contains only elements from source array that 
+        /// are composed of the digit.
+        /// </summary>
+        /// <param name="array">Source array for filtering.</param>
+        /// <param name="digit">Digit for filtering.</param>
+        /// <returns>Filtered array.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when source array is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when source array is empty. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when digit
+        /// argument doesn't represent a digit </exception>
+        public static int[] FilterArrayByKey(this int[] array, int digit)
+        {
+            CheckDigit(digit);
+            CheckArray(array);
+            var filtered = new List<int>();
+            foreach (var element in array)
+            {
+                if (Contains(element, digit))
+                {
+                    filtered.Add(element);
+                }
+            }
+
+            return filtered.ToArray();
+        }
+
+        /// <summary>
         /// Method that orders array ascending
         /// </summary>
         /// <param name="array">Array for sorting.</param>
@@ -39,7 +67,7 @@ namespace Sorts
         public static void MergeSort(this int[] array)
         {
             CheckArray(array);
-                     MergeSort(array, 0, array.Length - 1);
+            MergeSort(array, 0, array.Length - 1);
         }
 
         /// <summary>
@@ -166,6 +194,14 @@ namespace Sorts
             secondElement = temp;
         }
 
+        private static void CheckDigit(int digit)
+        {
+            if (digit < 0 || digit > 9)
+            {
+                throw new ArgumentOutOfRangeException($"Digit must be from 0 to 9: {digit}");
+            }
+        }
+
         private static void CheckArray(int[] array)
         {
             if (array == null)
@@ -192,6 +228,23 @@ namespace Sorts
             int leftSubarrayMax = GetMaxElement(array, leftIndex, (leftIndex / 2) + (rightIndex / 2));
             int rightSubarrayMax = GetMaxElement(array, (leftIndex / 2) + (rightIndex / 2) + 1, rightIndex);
             return Math.Max(leftSubarrayMax, rightSubarrayMax);
+        }
+
+        #endregion
+
+        #region Private methods for FilterArrayByKey
+
+        private static bool Contains(int number, int digit)
+        {
+            for (; number != 0; number /= 10)
+            {
+                if (Math.Abs(number % 10) == digit)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion

@@ -14,7 +14,7 @@ namespace Sorts.Tests.MS
             int[] array = null;
             array.QuickSort();
         }
- 
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void QuickSort_ArrayIsEmpty_ThrowArgumentException()
@@ -23,7 +23,7 @@ namespace Sorts.Tests.MS
         }
 
         [DataTestMethod]
-        [DataRow(new int[] { -255, 10, int.MaxValue, int.MinValue }, 
+        [DataRow(new int[] { -255, 10, int.MaxValue, int.MinValue },
             new int[] { int.MinValue, -255, 10, int.MaxValue })]
         [DataRow(new int[] { 5, -10, -50, 15 }, new int[] { -50, -10, 5, 15 }, DisplayName = "Array with few elements")]
         [DataRow(new int[] { 5 }, new int[] { 5 }, DisplayName = "Array with one element")]
@@ -60,7 +60,7 @@ namespace Sorts.Tests.MS
             new int[] { }.MergeSort();
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(new int[] { 5, -10, -50, 15 }, new int[] { -50, -10, 5, 15 }, DisplayName = "Array with few elements")]
         [DataRow(new int[] { 1 }, new int[] { 1 })]
         public void MergeSort_ConcreteArray_ArrayIsSorted(int[] given, int[] expected)
@@ -69,7 +69,7 @@ namespace Sorts.Tests.MS
             CollectionAssert.AreEqual(expected, given);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(1000)]
         [DataRow(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfElements)
@@ -78,6 +78,7 @@ namespace Sorts.Tests.MS
             array.MergeSort();
             Assert.IsTrue(array.IsOrdered());
         }
+
         #endregion
 
         #region IsOrdered method tests
@@ -95,6 +96,42 @@ namespace Sorts.Tests.MS
             Assert.IsTrue(ordered.IsOrdered());
         }
         #endregion
-    }
 
+        #region FilterArrayByKey tests
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FilterArrayByKey_ArrayIsNull_ThrowArgumentNullException()
+        {
+            int[] array = null;
+            array.FilterArrayByKey(1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FilterArrayByKey_ArrayIsEmpty_ThrowArgumentException()
+        {
+            new int[] { }.FilterArrayByKey(1);
+        }
+
+        [TestMethod]
+        [DataRow(-10)]
+        [DataRow(19)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void FilterArrayByKey_NotDigit_ThrowArgumentOutOfRangeException(int notADigitNumber)
+        {
+            new int[] { 1, 2, 3 }.FilterArrayByKey(notADigitNumber);
+        }
+
+        [TestMethod]
+        [DataRow(new int[] { -5, -55, 10, 8, -12, 545, 33356 }, new int[] { -5, -55, 545, 33356 }, 5)]
+        [DataRow(new int[] { 1 }, new int[] { }, 2)]
+        public void FilterArrayByKey_ConcreteArray_ReturnFilteredArray(int[] given, int[] expected, int digit)
+        {
+            int[] actual = given.FilterArrayByKey(digit);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        #endregion
+    }
 }

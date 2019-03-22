@@ -1,9 +1,7 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
 
 namespace Sorts.Tests.NUnit
 {
@@ -102,6 +100,32 @@ namespace Sorts.Tests.NUnit
 
         public void GetMaxElement_ArrayIsEmpty_ThrowArgumentException() =>
             Assert.Throws<ArgumentException>(() => new int[] { }.GetMaxElement());
+
+        #endregion
+
+        #region FilterArrayByKey tests
+        
+        public void FilterArrayByKey_ArrayIsNull_ThrowArgumentNullException() =>
+            Assert.Throws<ArgumentNullException>(() => ArrayExtension.FilterArrayByKey(null, 12));
+
+        public void FilterArrayByKey_ArrayIsEmpty_ThrowArgumentNullException() =>
+            Assert.Throws<ArgumentNullException>(() => new int[] { }.FilterArrayByKey(12));
+
+        [TestCase(-88)]
+        [TestCase(211)]
+        public void FilterArrayByKey_NotDigit_ThrowArgumentOutOfRangeException(int notADigitNumber)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new int[] { }.FilterArrayByKey(notADigitNumber));
+        }
+
+        [TestCase(new int[] { 1 }, new int[] { }, 2)]
+        [TestCase(new int[] { 24, 42, -4444, -4, 4, -4, 22, -788 },
+            new int[] { 24, 42, -4444, -4, 4, -4 }, 4)]
+        public void FilterArrayByKey_ConcreteArray_ReturnFilteredArray(int[] given, int[] expected, int digit)
+        {
+            int[] actual = given.FilterArrayByKey(digit);
+            CollectionAssert.AreEqual(expected, actual);
+        }
 
         #endregion
     }
