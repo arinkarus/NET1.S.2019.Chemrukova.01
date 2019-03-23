@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Sorts.Tests.MS
@@ -38,7 +39,7 @@ namespace Sorts.Tests.MS
         [DataRow(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = ArrayGenerator.GetRandomSequence(amountOfElements);
+            var array = ArrayGenerator.GetRandomSequence(amountOfElements, -10000, 10000);
             array.QuickSort();
             Assert.IsTrue(array.IsOrdered());
         }
@@ -47,12 +48,12 @@ namespace Sorts.Tests.MS
         [DataRow(1000)]
         public void QuickSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            int[] source = Enumerable.Range(0, amountOfGeneratedValues).ToArray();
             var arrayToShake = new int[amountOfGeneratedValues];
-            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            Array.Copy(source, arrayToShake, amountOfGeneratedValues);
             arrayToShake.Shake();
             arrayToShake.QuickSort();
-            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+            CollectionAssert.AreEqual(source, arrayToShake);
         }
 
         #endregion
@@ -87,7 +88,7 @@ namespace Sorts.Tests.MS
         [DataRow(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = ArrayGenerator.GetRandomSequence(amountOfElements);
+            var array = ArrayGenerator.GetRandomSequence(amountOfElements, int.MinValue, int.MaxValue);
             array.MergeSort();
             Assert.IsTrue(array.IsOrdered());
         }
@@ -96,12 +97,12 @@ namespace Sorts.Tests.MS
         [DataRow(1000)]
         public void MergeSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            int[] source = Enumerable.Range(0, amountOfGeneratedValues).ToArray();
             var arrayToShake = new int[amountOfGeneratedValues];
-            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            Array.Copy(source, arrayToShake, amountOfGeneratedValues);
             arrayToShake.Shake();
             arrayToShake.MergeSort();
-            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+            CollectionAssert.AreEqual(source, arrayToShake);
         }
 
         #endregion

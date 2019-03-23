@@ -12,45 +12,28 @@ namespace Sorts
         /// Method for generating arrays that contains elements of random values.
         /// </summary>
         /// <param name="amountOfElements">Count of elements in generated array.</param>
+        /// <param name="lowerThreshold">Minimum value for generation</param>
+        /// <param name="higherThreshold">Maximum value for generation</param>
         /// <returns>Generated array</returns>
         /// <exception cref="ArgumentException">Thrown when amountOfElements is less then 1.</exception>
-        public static int[] GetRandomSequence(int amountOfElements)
+        public static int[] GetRandomSequence(int amountOfElements, int lowerThreshold, int higherThreshold)
         {
             CheckNumberForPositiveValue(amountOfElements);
             Random random = new Random();
             var randomNumbers = new int[amountOfElements];
             for (int i = 0;  i < randomNumbers.Length; i++)
             {
-                randomNumbers[i] = random.Next(-10000, 10000);
+                randomNumbers[i] = random.Next(lowerThreshold, higherThreshold);
             }
 
             return randomNumbers;
-        }
-
-        /// <summary>
-        /// Method for generating array in which elements 
-        /// are ordered ascending with step = 1
-        /// </summary>
-        /// <param name="amountOfElements"> Count of elements in generated array. </param>
-        /// <returns>Generated array</returns>
-        /// <exception cref="ArgumentException">Thrown when amountOfElements is less then 1.</exception>
-        public static int[] GetIncreasingArray(int amountOfElements)
-        {
-            CheckNumberForPositiveValue(amountOfElements);
-            var increasingArray = new int[amountOfElements];
-            for (int i = 0; i < amountOfElements; i++)
-            {
-                increasingArray[i] = i;
-            }
-
-            return increasingArray;
         }
 
         private static void CheckNumberForPositiveValue(int number)
         {
             if (number <= 0)
             {
-                throw new ArgumentException($"{nameof(number)} has to be greater than 0");
+                throw new ArgumentException($"{nameof(number)} has to be greater than 0.");
             }
         }
     }

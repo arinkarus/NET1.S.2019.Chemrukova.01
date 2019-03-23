@@ -39,7 +39,7 @@ namespace Sorts.Tests.NUnit
         [TestCase(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
+            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues, -500, 500);
             array.QuickSort();
             Assert.That(array, Is.Ordered);
         }
@@ -48,12 +48,12 @@ namespace Sorts.Tests.NUnit
         [TestCase(10000)]
         public void QuickSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            int[] source = Enumerable.Range(0, amountOfGeneratedValues).ToArray();
             var arrayToShake = new int[amountOfGeneratedValues];
-            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            Array.Copy(source, arrayToShake, amountOfGeneratedValues);
             arrayToShake.Shake();
             arrayToShake.QuickSort();
-            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+            CollectionAssert.AreEqual(source, arrayToShake);
         }
 
         #endregion
@@ -72,14 +72,14 @@ namespace Sorts.Tests.NUnit
         public void MergeSort_ConcreteArray_ArrayIsSorted(int[] given, int[] expected)
         {
             given.MergeSort();
-            Assert.That(given, Is.EqualTo(expected));
+            Assert.That(expected, Is.EqualTo(given));
         }
 
         [TestCase(1000)]
         [TestCase(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
+            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues, -1000, 1000);
             array.MergeSort();
             Assert.That(array, Is.Ordered);
         }
@@ -88,12 +88,12 @@ namespace Sorts.Tests.NUnit
         [TestCase(10000)]
         public void MergeSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            int[] source = Enumerable.Range(0, amountOfGeneratedValues).ToArray();
             var arrayToShake = new int[amountOfGeneratedValues];
-            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            Array.Copy(source, arrayToShake, amountOfGeneratedValues);
             arrayToShake.Shake();
             arrayToShake.MergeSort();
-            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+            CollectionAssert.AreEqual(source, arrayToShake);
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace Sorts.Tests.NUnit
         [TestCase(100000)]
         public void GetMaxElement_RandomArray_ReturnMaxValue(int amountOfGeneratedValues)
         {
-            var randomizedArray = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
+            var randomizedArray = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues, -10000, 10000);
             int expected = randomizedArray.Max();
             int actual = randomizedArray.GetMaxElement();
             Assert.AreEqual(expected, actual);
@@ -142,16 +142,14 @@ namespace Sorts.Tests.NUnit
         public void FilterArrayByKey_ArrayIsNull_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => ArrayExtension.FilterArrayByKey(null, 12));
 
-        public void FilterArrayByKey_ArrayIsEmpty_ThrowArgumentNullException() =>
-            Assert.Throws<ArgumentNullException>(() => new int[] { }.FilterArrayByKey(12));
+        public void FilterArrayByKey_ArrayIsEmpty_ThrowArgumentException() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() => new int[] { }.FilterArrayByKey(12));
 
         [TestCase(-88)]
         [TestCase(211)]
-        public void FilterArrayByKey_NotDigit_ThrowArgumentOutOfRangeException(int notADigitNumber)
-        {
+        public void FilterArrayByKey_NotDigit_ThrowArgumentOutOfRangeException(int notADigitNumber) =>
             Assert.Throws<ArgumentOutOfRangeException>(() => new int[] { }.FilterArrayByKey(notADigitNumber));
-        }
-
+        
         [TestCase(new int[] { 1 }, new int[] { }, 2)]
         [TestCase(new int[] { 24, 42, -4444, -4, 4, -4, 22, -788 },
             new int[] { 24, 42, -4444, -4, 4, -4 }, 4)]
@@ -162,5 +160,39 @@ namespace Sorts.Tests.NUnit
         }
 
         #endregion
+
+        #region FindIndex tests
+
+        public void FindIndex_ArrayIsNull_ThrowArgumentNullException() =>
+            Assert.Throws<ArgumentNullException>(() => ArrayExtension.FindIndex(null, 000.1));
+
+        public void FindIndex_ArrayIsEmpty_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => new double[] { }.FindIndex(0.001));
+
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(12)]
+        [TestCase(-110)]
+        public void FindIndex_AccuracyIsOutOfRange_ThrowArgumentOutOfRangeException(double accuracyValue) =>
+            Assert.Throws<ArgumentOutOfRangeException>(() => new double[] { 0.002 }.FindIndex(accuracyValue));
+      
+        [TestCase(new double[] { 0.8 }, 0.1, ExpectedResult = null)]
+        [TestCase(new double[] { 0.3, 0.3, 2, 0.2, 0.2, 0.2 }, 0.01, ExpectedResult = 2)]
+        [TestCase(new double[] { 0.25555, 0.00001, -0.0008, 15, 5.03, 0.5551, 9.85 }, 0.001, ExpectedResult = null)]
+        [TestCase(new double[] { -3, 1, -0.252,
+            1000, 259, -262, -0.00001, 0.5, 0.5, -0.12, -0.12, -0.0149 }, 0.01, ExpectedResult = 3)]
+        public int? FindIndex_ConcreteArray_ReturnResult(double[] source, double accuracy)
+        {
+            return source.FindIndex(accuracy);
+        }
+
+        [TestCase(new double[] { 0.3, 10, 0.15, 0.15 }, ExpectedResult = 1)]
+        [TestCase(new double[] { 0.2, 0.1, 10, 0.15, 0.15 }, ExpectedResult = null)]
+        public int? FindIndex_SmallAccuracy_ReturnNull(double[] source)
+        {
+            return source.FindIndex(Math.Abs(1E-20));
+        }
+
+        #endregion FindIndex tests 
     }
 }

@@ -9,6 +9,30 @@ namespace Sorts
     public static class ArrayExtension
     {
         /// <summary>
+        /// Method returns index of element for which the sum of the elements to the left of it
+        /// is equal to the sum on the right. 
+        /// </summary>
+        /// <param name="array">Source array.</param>
+        /// <param name="accuracy">Accuracy value.</param>
+        /// <returns>Index of element for which elements to the right equal to elements to the left.</returns>
+        public static int? FindIndex(this double[] array, double accuracy)
+        {
+            CheckArray(array);
+            CheckAccuracy(accuracy);
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                double sumOfElementsFromLeft = GetSumOfArrayElements(array, 0, i - 1);
+                double sumOfElementsFromRight = GetSumOfArrayElements(array, i + 1, array.Length - 1);
+                if (Math.Abs(sumOfElementsFromLeft - sumOfElementsFromRight) <= accuracy)
+                {
+                    return i;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Method returns max value from unsorted array.
         /// </summary>
         /// <param name="array">Unsorted array.</param>
@@ -202,11 +226,30 @@ namespace Sorts
 
         #region Additional methods 
 
+        private static double GetSumOfArrayElements(double[] array, int startIndex, int endIndex)
+        {
+            double sum = 0;
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                sum += array[i];
+            }
+
+            return sum;
+        }
+
         private static void Swap(ref int firstElement, ref int secondElement)
         {
             int temp = firstElement;
             firstElement = secondElement;
             secondElement = temp;
+        }
+
+        private static void CheckAccuracy(double accuracyValue)
+        {
+            if (accuracyValue <= 0 || accuracyValue >= 1)
+            {
+                throw new ArgumentOutOfRangeException($"Accuracy has to be less than 1 and greater than 0: {nameof(accuracyValue)}.");
+            }
         }
 
         private static void CheckDigit(int digit)
@@ -217,16 +260,16 @@ namespace Sorts
             }
         }
 
-        private static void CheckArray(int[] array)
+        private static void CheckArray<T>(T[] array)
         {
             if (array == null)
             {
-                throw new ArgumentNullException($"Input array cannot be null: {nameof(array)}");
+                throw new ArgumentNullException($"Input array cannot be null: {nameof(array)}.");
             }
 
             if (array.Length == 0)
             {
-                throw new ArgumentException($"Input array cannot be empty: {nameof(array)}");
+                throw new ArgumentException($"Input array cannot be empty: {nameof(array)}.");
             }
         }
         #endregion
