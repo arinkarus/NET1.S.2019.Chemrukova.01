@@ -39,10 +39,23 @@ namespace Sorts.Tests.NUnit
         [TestCase(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = RandomHelper.GetArray(amountOfGeneratedValues);
+            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
             array.QuickSort();
             Assert.That(array, Is.Ordered);
         }
+
+        [TestCase(1000)]
+        [TestCase(10000)]
+        public void QuickSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
+        {
+            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            var arrayToShake = new int[amountOfGeneratedValues];
+            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            arrayToShake.Shake();
+            arrayToShake.QuickSort();
+            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+        }
+
         #endregion
 
         #region Merge Sort tests
@@ -66,10 +79,23 @@ namespace Sorts.Tests.NUnit
         [TestCase(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfGeneratedValues)
         {
-            var array = RandomHelper.GetArray(amountOfGeneratedValues);
+            var array = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
             array.MergeSort();
             Assert.That(array, Is.Ordered);
         }
+
+        [TestCase(1000)]
+        [TestCase(10000)]
+        public void MergeSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
+        {
+            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            var arrayToShake = new int[amountOfGeneratedValues];
+            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            arrayToShake.Shake();
+            arrayToShake.MergeSort();
+            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+        }
+
         #endregion
 
         #region FindMax tests
@@ -79,7 +105,7 @@ namespace Sorts.Tests.NUnit
         [TestCase(100000)]
         public void GetMaxElement_RandomArray_ReturnMaxValue(int amountOfGeneratedValues)
         {
-            var randomizedArray = RandomHelper.GetArray(amountOfGeneratedValues);
+            var randomizedArray = ArrayGenerator.GetRandomSequence(amountOfGeneratedValues);
             int expected = randomizedArray.Max();
             int actual = randomizedArray.GetMaxElement();
             Assert.AreEqual(expected, actual);

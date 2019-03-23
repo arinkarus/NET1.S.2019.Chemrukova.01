@@ -22,7 +22,7 @@ namespace Sorts.Tests.MS
             new int[] { }.MergeSort();
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(new int[] { -255, 10, int.MaxValue, int.MinValue },
             new int[] { int.MinValue, -255, 10, int.MaxValue })]
         [DataRow(new int[] { 5, -10, -50, 15 }, new int[] { -50, -10, 5, 15 }, DisplayName = "Array with few elements")]
@@ -33,15 +33,28 @@ namespace Sorts.Tests.MS
             CollectionAssert.AreEqual(expected, given);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(1000)]
         [DataRow(1000000)]
         public void QuickSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = RandomHelper.GetArray(amountOfElements);
+            var array = ArrayGenerator.GetRandomSequence(amountOfElements);
             array.QuickSort();
             Assert.IsTrue(array.IsOrdered());
         }
+
+        [TestMethod]
+        [DataRow(1000)]
+        public void QuickSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
+        {
+            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            var arrayToShake = new int[amountOfGeneratedValues];
+            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            arrayToShake.Shake();
+            arrayToShake.QuickSort();
+            CollectionAssert.AreEqual(increasingArray, arrayToShake);
+        }
+
         #endregion
 
         #region Merge Sort tests
@@ -74,9 +87,21 @@ namespace Sorts.Tests.MS
         [DataRow(1000000)]
         public void MergeSort_RandomArray_ArrayIsSorted(int amountOfElements)
         {
-            var array = RandomHelper.GetArray(amountOfElements);
+            var array = ArrayGenerator.GetRandomSequence(amountOfElements);
             array.MergeSort();
             Assert.IsTrue(array.IsOrdered());
+        }
+
+        [TestMethod]
+        [DataRow(1000)]
+        public void MergeSort_IncreasingSequence_ArrayIsSorted(int amountOfGeneratedValues)
+        {
+            var increasingArray = ArrayGenerator.GetIncreasingArray(amountOfGeneratedValues);
+            var arrayToShake = new int[amountOfGeneratedValues];
+            Array.Copy(increasingArray, arrayToShake, amountOfGeneratedValues);
+            arrayToShake.Shake();
+            arrayToShake.MergeSort();
+            CollectionAssert.AreEqual(increasingArray, arrayToShake);
         }
 
         #endregion

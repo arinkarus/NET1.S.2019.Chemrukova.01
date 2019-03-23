@@ -31,7 +31,7 @@ namespace Sorts
         /// <exception cref="ArgumentNullException">Thrown when source array is null.</exception>
         /// <exception cref="ArgumentException">Thrown when source array is empty. </exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when digit
-        /// argument doesn't represent a digit </exception>
+        /// argument doesn't represent a digit. </exception>
         public static int[] FilterArrayByKey(this int[] array, int digit)
         {
             CheckDigit(digit);
@@ -98,6 +98,21 @@ namespace Sorts
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Changes element's order in array.
+        /// </summary>
+        /// <param name="array">Array that will be mixed</param>
+        public static void Shake(this int[] array)
+        {
+            CheckArray(array);
+            for (int i = 0; i < array.Length; i++)
+            {
+                Random random = new Random();
+                int index = random.Next(array.Length);
+                Swap(ref array[i], ref array[index]);
+            }
         }
 
         #region Private methods for merge sort
@@ -198,7 +213,7 @@ namespace Sorts
         {
             if (digit < 0 || digit > 9)
             {
-                throw new ArgumentOutOfRangeException($"Digit must be from 0 to 9: {digit}");
+                throw new ArgumentOutOfRangeException($"Digit must be from 0 to 9: {nameof(digit)}");
             }
         }
 

@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="ArrayExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomHelper.cs" />
+    <Compile Include="ArrayGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
