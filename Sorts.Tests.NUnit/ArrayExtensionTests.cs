@@ -115,10 +115,18 @@ namespace Sorts.Tests.NUnit
         [TestCase(new int[] { 6, int.MaxValue, int.MaxValue, int.MinValue, 1, 2, }, int.MaxValue)]
         [TestCase(new int[] { 33 }, 33)]
         [TestCase(new int[] { -55, -55, -45, -10000 }, -45)]
-        public void GetMaxElement_ConcreteArray_ReturnMaxValue(int[] given, int expected)
+        public void GetMaxElement_ConcreteArray_ReturnMaxElement(int[] given, int expected)
         {
             int actual = given.GetMaxElement();
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase()]
+        public void GetMaxElement_BigArray_ReturnMaxElement()
+        {
+            int[] source = Enumerable.Range(0, 10000000).ToArray();
+            source.Shake();
+            int maxValue = source.GetMaxElement();
         }
 
         public void GetMaxElement_ArrayIsNull_ThrowArgumentNullException() =>
