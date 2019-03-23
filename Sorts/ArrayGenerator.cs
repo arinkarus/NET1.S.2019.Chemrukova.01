@@ -38,10 +38,11 @@ namespace Sorts
         {
             CheckNumberForPositiveValue(amountOfElements);
             var increasingArray = new int[amountOfElements];
-            for(int i = 0; i < amountOfElements; i++)
+            for (int i = 0; i < amountOfElements; i++)
             {
                 increasingArray[i] = i;
             }
+
             return increasingArray;
         }
 
