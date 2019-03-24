@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 
 namespace Sorts.Tests.NUnit
 {
@@ -186,11 +186,24 @@ namespace Sorts.Tests.NUnit
             return source.FindIndex(accuracy);
         }
 
-        [TestCase(new double[] { 0.3, 10, 0.15, 0.15 }, ExpectedResult = 1)]
+        [TestCase(new double[] { 0.3, 0, 0.3 }, ExpectedResult = 1)]
         [TestCase(new double[] { 0.2, 0.1, 10, 0.15, 0.15 }, ExpectedResult = null)]
         public int? FindIndex_SmallAccuracy_ReturnNull(double[] source)
         {
             return source.FindIndex(Math.Abs(1E-20));
+        }
+
+        [TestCase(0.0000001, 10000, 2)]
+        [TestCase(0.0001, 1000000, 88)]
+        [TestCase(0.01, 10000000, 101)]
+        public void FindIndex_BigArray_ReturnIndex(double accuracy, int count, double elementAtSearchedIndex)
+        {
+            List<double> data = Enumerable.Repeat(0.3, count).ToList();
+            data.Add(elementAtSearchedIndex);
+            data.AddRange(Enumerable.Repeat(0.15, count * 2));
+            double[] source = data.ToArray();
+            int? actual = source.FindIndex(accuracy);
+            Assert.AreEqual(count, actual);
         }
 
         #endregion FindIndex tests 

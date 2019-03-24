@@ -19,10 +19,12 @@ namespace Sorts
         {
             CheckArray(array);
             CheckAccuracy(accuracy);
-            for (int i = 0; i < array.Length - 1; i++)
+            double sumOfElementsFromLeft = 0;
+            double sumOfElementsFromRight = GetSumOfArrayElements(array, 1, array.Length - 1);
+            for (int i = 1; i < array.Length - 1; i++)
             {
-                double sumOfElementsFromLeft = GetSumOfArrayElements(array, 0, i - 1);
-                double sumOfElementsFromRight = GetSumOfArrayElements(array, i + 1, array.Length - 1);
+                sumOfElementsFromLeft += array[i - 1];
+                sumOfElementsFromRight -= array[i];
                 if (Math.Abs(sumOfElementsFromLeft - sumOfElementsFromRight) <= accuracy)
                 {
                     return i;
